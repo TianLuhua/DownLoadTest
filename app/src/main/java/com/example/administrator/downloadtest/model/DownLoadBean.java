@@ -28,19 +28,6 @@ public class DownLoadBean {
     private long fileCount;
     private String filePath;
 
-//    public static final String COLUMN_ID = "_id";
-//    public static final String COLUMN_URL = "url";
-//    public static final String COLUMN_FILEFOLDER = "fileFolder";
-//    public static final String COLUMN_FILENAME = "fileName";
-//    public static final String COLUMN_MSG = "msg";
-//    public static final String COLUMN_STATUS = "status";
-//    public static final String COLUMN_DOWNPROGRESS = "downProgress";
-//    public static final String COLUMN_ALLCOUNT = "allCount";
-//    public static final String COLUMN_BEFORELENGTH = "beforeLength";
-//    public static final String COLUMN_FILECOUNT = "fileCount";
-//    public static final String COLUMN_FILEPATH = "filePath";
-
-
     public DownLoadBean() {
 
     }

@@ -32,6 +32,8 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
+import static com.example.administrator.downloadtest.ui.DownLoadPersenter.DOWNLOAD_TASK_CHENGED;
+
 /**
  * Created by tlh on 2016/11/25 0025.
  */
@@ -78,6 +80,7 @@ public class DownLoadService extends Service {
                 if (download(downLoadBean, downloadListener)) {
                     downLoadBeanMap.put(downLoadBean.getId(), downLoadBean);
                     manager.addPerson(downLoadBean);
+                    rxBus.send(DOWNLOAD_TASK_CHENGED);
                 }
             }
         }, new Action1<Throwable>() {
@@ -162,7 +165,7 @@ public class DownLoadService extends Service {
             task.setBeforeLength(beforeLength);
             task.setAllCount(allCount);
             manager.updateById(task);
-            rxBus.send(1);
+            rxBus.send(DOWNLOAD_TASK_CHENGED);
             Log.e("info", what + "----onStart:" + "开始下下载!");
         }
 
@@ -193,7 +196,7 @@ public class DownLoadService extends Service {
             task.setStatus(DownLoadBean.DOWNLOCADBEAN_STATUS_ERROR);
             task.setMsg(message);
             manager.updateById(task);
-            rxBus.send(1);
+            rxBus.send(DOWNLOAD_TASK_CHENGED);
             Log.e("info", what + "----onDownloadError:" + message);
 
         }
@@ -207,7 +210,7 @@ public class DownLoadService extends Service {
             task.setFileCount(fileCount);
             task.setMsg("正在下载。。。");
             manager.updateById(task);
-            rxBus.send(1);
+            rxBus.send(DOWNLOAD_TASK_CHENGED);
             Log.e("info", what + "--progress:" + progress);
         }
 
@@ -219,7 +222,7 @@ public class DownLoadService extends Service {
             task.setFilePath(filePath);
             task.setMsg("下载完成下载完成！");
             manager.updateById(task);
-            rxBus.send(1);
+            rxBus.send(DOWNLOAD_TASK_CHENGED);
             Log.e("info", "onFinish:" + what + "--filePath:" + filePath);
 
         }
@@ -230,7 +233,7 @@ public class DownLoadService extends Service {
             task.setId(what);
             task.setStatus(DownLoadBean.DOWNLOCADBEAN_STATUS_CANCEL);
             manager.updateById(task);
-            rxBus.send(1);
+            rxBus.send(DOWNLOAD_TASK_CHENGED);
             Log.e("info", what + "---onCancel:");
         }
     };
@@ -239,6 +242,7 @@ public class DownLoadService extends Service {
     public void onDestroy() {
         super.onDestroy();
         rxBus.unsubscribe();
+        manager.close();
         Log.e("info", "DownLoadService---stop");
     }
 }

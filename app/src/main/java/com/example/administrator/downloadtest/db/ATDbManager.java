@@ -40,6 +40,12 @@ public class ATDbManager {
         briteDatabase.setLoggingEnabled(true);
     }
 
+    public void close() {
+        if (briteDatabase != null)
+            briteDatabase.close();
+    }
+
+
     public Observable<List<DownLoadBean>> queryPerson() {
         return briteDatabase
                 .createQuery(ATDb.DownLoadTaskTable.TABLE_NAME, "SELECT * FROM " + ATDb.DownLoadTaskTable.TABLE_NAME)

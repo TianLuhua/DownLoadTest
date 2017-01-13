@@ -103,7 +103,8 @@ public class DownLoadTaskAdapter extends RecyclerView.Adapter<DownLoadTaskAdapte
                 @Override
                 public void onClick(View view) {
                     String tag = (String) view.getTag();
-                    persenter.recyclerViewItemClick(tag, getAdapterPosition());
+                    if (persenter != null)
+                        persenter.recyclerViewItemClick(tag, getAdapterPosition());
                 }
             });
             status = (TextView) itemView.findViewById(R.id.item_status);

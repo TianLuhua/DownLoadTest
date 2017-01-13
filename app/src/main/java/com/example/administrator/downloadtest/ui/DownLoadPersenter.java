@@ -31,6 +31,8 @@ import rx.schedulers.Schedulers;
 
 public class DownLoadPersenter implements DownLoaderContract.Persenter {
 
+    public static final int DOWNLOAD_TASK_CHENGED = 0;
+
 
     private static final String TAG = DownLoadPersenter.class.getSimpleName();
     private DownLoaderContract.View view;
@@ -63,7 +65,7 @@ public class DownLoadPersenter implements DownLoaderContract.Persenter {
                 if (obj instanceof Integer) {
                     int i = (Integer) obj;
                     Log.e("info", "receive---receive:" + i);
-                    return i == 1 ? true : false;
+                    return i == DOWNLOAD_TASK_CHENGED ? true : false;
                 }
                 return false;
             }
@@ -121,7 +123,7 @@ public class DownLoadPersenter implements DownLoaderContract.Persenter {
 
     @Override
     public void startDownLoad() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 16; i++) {
             //noHttp是按照文件名称来判断是否为同一个文件，所以这里在文件名称前面把 i 加上去表示这10个文件不同
             DownLoadBean downloadTask = new DownLoadBean(i, "http://gdown.baidu.com/data/wisegame/4f45d1baacb6ee7f/baidushoujizhushouyuan91zhu_16789458.apk", Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "APK", i + "baidushoujizhushouyuan91zhu.apk");
             rxBus.send(downloadTask);
